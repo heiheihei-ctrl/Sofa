@@ -3,23 +3,63 @@ import {Await, NavLink, useAsyncValue} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
 
+//图片
+import logo from '../assets/header/logo.png';
+import search from '../assets/header/iconamoon_search.png';
+import cacrt from '../assets/header/proicons_cart.png';
+
 /**
  * @param {HeaderProps}
  */
 export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
   const {shop, menu} = header;
   return (
-    <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
-      </NavLink>
-      <HeaderMenu
-        menu={menu}
-        viewport="desktop"
-        primaryDomainUrl={header.shop.primaryDomain.url}
-        publicStoreDomain={publicStoreDomain}
-      />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+    <header className="mt-[30px] relative bg-[#F8F8F8]" style={{padding: '0 30px'}}>
+      {/* 列表 */}
+      <ul className='flex w-[582px] justify-between absolute left-[50%] translate-x-[-50%] top-[20px] z-[2]'>
+        <li className='cursor-pointer'><a href={"/"}>Home</a></li>
+        <li className='cursor-pointer'><a href={"/about"}>About</a></li>
+        <li className='cursor-pointer'><a href={"/shop"}>Shop</a></li>
+        <li className='cursor-pointer'><a href={"/customize"}>Customize</a></li>
+        <li className='cursor-pointer'><a href={"/services"}>Services & FAQ</a></li>
+        <li className='cursor-pointer'><a href={"/contact"}>Contact</a></li>
+      </ul>
+      <div className="bg-red w-[100%] h-[950px] relative bg-[url('../assets/header/banner.png')] bg-contain bg-no-repeat pt-[24px]">
+        {/* logo */}
+        <img className="w-[188px] ml-[130px]" src={logo} alt="" />
+        {/* 导航 */}
+        {/* 按钮 */}
+        <div className="flex items-center absolute top-[34px] right-[130px]">
+          <img
+            className="w-[30px] h-[30px] cursor-pointer"
+            src={search}
+            alt=""
+          />
+          <button className="bg-[#fff] rounded-full w-[50px] h-[50px] mx-[16px] cursor-pointer">
+            <img className="w-[24px] h-[24px] mx-auto" src={cacrt} alt="" />
+          </button>
+          <button className="bg-[#fff] rounded-full px-[10px] py-[5px] text-[18px] w-[168px] h-[50px] cursor-pointer">
+            Signup/Login
+          </button>
+        </div>
+      </div>
+      {/* 居中 */}
+      <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-[#fff]">
+        <div className="h-[178px] w-[808px] mx-auto">
+          <div className="bg-[#4D4D4D] w-[98px] h-[28px] rounded-full text-center leading-[28px]">30% Off</div>
+          <div className='flex'>
+            <div className='flex flex-col mr-[30px]'>
+              <span className='text-[50px] font-bold'>Modular Sofa</span>
+              <span className='text-[18px]'>Lorem ipsum dolor sit amet, consectetur</span>
+            </div>
+            <div>
+              <button className='w-[130px] h-[44px] bg-[#fff] rounded-full text-[#000] mr-[6px]'>Shop Now</button>
+              <button className='w-[238px] h-[44px] border-1 rounded-full text-[#fff]'>Submit Custom Request</button>
+            </div>
+          </div>
+        </div>
+        <p className='text-[38px]'>Create Your Life.<span className='font-bold'>Everyday.</span></p>
+      </div>
     </header>
   );
 }

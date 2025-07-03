@@ -1,26 +1,83 @@
 import {Suspense} from 'react';
 import {Await, NavLink} from 'react-router';
 
+import logo from '../assets/header/logo2.png';
+
 /**
  * @param {FooterProps}
  */
 export function Footer({footer: footerPromise, header, publicStoreDomain}) {
   return (
-    <Suspense>
-      <Await resolve={footerPromise}>
-        {(footer) => (
-          <footer className="footer">
-            {footer?.menu && header.shop.primaryDomain?.url && (
-              <FooterMenu
-                menu={footer.menu}
-                primaryDomainUrl={header.shop.primaryDomain.url}
-                publicStoreDomain={publicStoreDomain}
+    <div>
+      <div className="w-full h-[296px] bg-[#282828] text-[#fff] py-[80px] px-[160px]">
+        <div className="flex justify-between">
+          <p className="w-[960px]">
+            <span className="text-[44px]">
+              Get Exclusive Offers and Be the First to
+            </span>
+            <span className="font-bold text-[44px]">
+              Try Our Custom Builder Tool!
+            </span>
+          </p>
+          <div className="bg-[#3D3D3D] rounded-full h-[70px] w-[470px] flex items-center justify-between px-[10px]">
+            <input
+              type="text"
+              placeholder="Enter Your Email"
+              style={{border: 'none', padding: '0 0 0 15px'}}
+            />
+            <button className="bg-[#FFFFFF] w-[138px] h-[50px] rounded-full text-[#000] cursor-pointer">
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="h-[380px] bg-[#E8E8E8] w-full px-[140px] pt-[100px] pb-[96px] border-box flex justify-between">
+        <div className="mr-[226px]">
+          <img className="w-[96px] h-[70px] mb-[16px]" src={logo} alt="" />
+          <p className="w-[293px]">
+            The advantage of hiring a workspace with us is that givees you
+            comfortable service and all-around facilities.
+          </p>
+        </div>
+        <div className="flex justify-between">
+          <div className="mr-[134px]">
+            <span>Quick Links</span>
+            <div className="flex mt-[16px]">
+              <ul>
+                <li className="text-[#666]">Shop</li>
+                <li className="text-[#666] mt-[16px]">Customize</li>
+                <li className="text-[#666] mt-[16px]">Sustainability</li>
+              </ul>
+              <ul>
+                <li className="text-[#666]">About</li>
+                <li className="text-[#666] mt-[16px]">Contact</li>
+              </ul>
+            </div>
+          </div>
+          <div className="mr-[120px]">
+            <span>Follow Us</span>
+            <ul className="mt-[16px]">
+              <li className="text-[#666] mt-[16px]">Facebook</li>
+              <li className="text-[#666] mt-[16px]">Twitter</li>
+              <li className="text-[#666] mt-[16px]">Instagram</li>
+            </ul>
+          </div>
+          <div>
+            <span>Newsletter</span>
+            <div className="bg-[#DCDCDC] rounded-full h-[70px] w-[470px] flex items-center justify-between px-[10px]">
+              <input
+                type="text"
+                placeholder="Enter Your Email"
+                style={{border: 'none', padding: '0 0 0 15px'}}
               />
-            )}
-          </footer>
-        )}
-      </Await>
-    </Suspense>
+              <button className="bg-[#282828] w-[138px] h-[50px] rounded-full text-[#fff] cursor-pointer">
+                Send Email
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
