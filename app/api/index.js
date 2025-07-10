@@ -1,8 +1,8 @@
 import service from '../utils/request';
-const GET_PRODUCTS = `{ shop { name } }`;
 
-// 使用示例
-export const shopifyRequest = {
-  graphql: (query, variables = {}) => 
-    service.post('/graphql.json', { query:'{ shop { name } }', variables }),
-};
+// 查询商品
+export const getProducts = async (params) => {
+  return service.get('/products', {
+    params
+  });
+}

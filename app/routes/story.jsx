@@ -6,32 +6,35 @@ import whyIcon4 from '../assets/main/why-icon4.png';
 
 export default function Storypage() {
   return (
-    <div className="bg-[#F8F8F8]">
-      <div className="flex justify-between py-[120px] px-[40px]">
+    <div className="bg-[#F8F8F8] px-[120px]">
+      <div className="flex justify-between py-[120px]">
         <div className="w-[695px] mr-[50px]">
           <h2 style={{fontWeight: 'normal', fontSize: '54px'}}>
             Brand <span className="font-bold">Story</span>
           </h2>
-          <p>
+          <p style={{margin:'16px 0 0',color:'#282828'}}>
             At Carve Creation, we believe furniture should move with you —
             giving you the freedom to create your life, every day.
           </p>
-          <p>
-            At Carve Creation, we believe furniture should move with you —
-            giving you the freedom to create your life, every day.
+          <p style={{margin:'16px 0 0',color:'#282828'}}>
+            Traditional furniture limits flexibility and wastes materials. We
+            knew there had to be a smarter way.
           </p>
-          <p>
-            At Carve Creation, we believe furniture should move with you —
-            giving you the freedom to create your life, every day.
+          <p style={{margin:'16px 0 0',color:'#282828'}}>
+            So we redesigned furniture from the ground up with modular systems
+            that adapt, expand, and transform with your needs.
           </p>
-          <p>
-            At Carve Creation, we believe furniture should move with you —
-            giving you the freedom to create your life, every day.
+          <p style={{margin:'16px 0 0',color:'#282828'}}>
+            Rooted in minimalist design and sustainable craftsmanship, our
+            pieces use eco-friendly materials to reduce waste without
+            compromising style
           </p>
-          <p>
-            At Carve Creation, we believe furniture should move with you —
-            giving you the freedom to create your life, every day.
+          <p style={{margin:'16px 0 0',color:'#282828'}}>
+            By offering factory-direct, customizable solutions, we cut out the
+            middlemen — delivering durable, high-quality furniture without the
+            markup.
           </p>
+          <p style={{margin:'16px 0 0',color:'#282828'}}>Smart. Flexible. Built for the way you live.</p>
         </div>
         <img
           style={{borderRadius: '20px'}}
@@ -41,7 +44,7 @@ export default function Storypage() {
         />
       </div>
       {/* 板块二 */}
-      <div className="w-[1000px] mx-auto mb-[40px] px-[40px]">
+      <div className="w-[1000px] mx-auto mb-[40px]">
         <p className="text-center">
           From compact city apartments to growing family homes, Carve Creation
           delivers modular furniture that evolves with every stage of your life.
@@ -51,7 +54,7 @@ export default function Storypage() {
         </p>
       </div>
       {/* 板块三 */}
-      <div className="flex justify-between px-[40px] pb-[120px]">
+      <div className="flex justify-between pb-[120px]">
         <img
           className="w-[785px] h-[820px]"
           style={{borderRadius: '20px'}}
@@ -80,13 +83,13 @@ export default function Storypage() {
             <span className="text-[36px]">At Carve Creation</span>
             <span className="font-bold text-[36px]"> We stand for</span>
           </p>
-          <p className='mt-[10px]'>
+          <p className="mt-[10px]">
             We are proud to support a future where smart living, sustainable
             choices, and beautiful design come together seamlessly.
           </p>
         </div>
         {/* 板块 */}
-        <div className="flex items-center px-[40px] justify-between mt-[80px] pb-[120px]">
+        <div className="flex items-center justify-between mt-[80px] pb-[120px]">
           <div
             className="w-[360px] h-[230px] bg-[#fff] rounded-[16px] p-[24px] box-border"
             style={{boxShadow: '0px 0px 2rgba0px 0px (0, 0, 0, 0.12)'}}

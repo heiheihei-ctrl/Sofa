@@ -1,18 +1,13 @@
 import axios from 'axios';
 
-// 创建 Axios 实例（指向你的 Shopify 商店域名）
 const service = axios.create({
-  baseURL: `https://${import.meta.env.VITE_PUBLIC_STORE_DOMAIN}/api/2025-07`,
+  baseURL: 'http://localhost:4000/api',
   timeout: 10000,
 });
 
 // 请求拦截器（自动添加 Storefront API Token）
 service.interceptors.request.use(
   (config) => {
-    // 所有请求默认携带 Storefront API Token
-    config.headers['X-Shopify-Storefront-Access-Token'] = 
-      import.meta.env.VITE_PUBLIC_STOREFRONT_API_TOKEN;
-    config.headers['Shopify-Storefront-Private-Token'] = import.meta.env.VITE_PUBLIC_PRIVATE_API_TOKEN;
     config.headers['Content-Type'] = 'application/json';
     return config;
   },
@@ -22,10 +17,6 @@ service.interceptors.request.use(
 // 响应拦截器（统一处理错误）
 service.interceptors.response.use(
   (response) => {
-    // 直接返回 GraphQL 的 data 字段
-    if (response.config.url.includes('/graphql.json')) {
-      return response.data.data || response.data;
-    }
     return response.data;
   },
   (error) => {

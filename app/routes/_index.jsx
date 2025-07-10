@@ -1,4 +1,5 @@
-import {Await, useLoaderData, Link} from 'react-router';
+import {useEffect, useState} from 'react';
+import {Await, Link} from 'react-router';
 import {Suspense} from 'react';
 import {Image} from '@shopify/hydrogen';
 import {ProductItem} from '~/components/ProductItem';
@@ -10,15 +11,12 @@ import whyIcon4 from '../assets/main/why-icon4.png';
 
 import goIcon from '../assets/common/go-icon.png';
 import card1 from '../assets/main/card1.jpg';
-import card2 from '../assets/main/card2.jpg';
-import card3 from '../assets/main/card3.jpg';
-import card4 from '../assets/main/card4.jpg';
-import card5 from '../assets/main/card5.jpg';
-import card6 from '../assets/main/card6.jpg';
 import progress from '../assets/main/progress.png';
 import happen from '../assets/main/happen.png';
 import star1 from '../assets/common/star1.png';
 import star2 from '../assets/common/star2.png';
+
+import {getProducts} from '../api';
 
 /**
  * @type {MetaFunction}
@@ -78,7 +76,38 @@ function loadDeferredData({context}) {
 
 export default function Homepage() {
   /** @type {LoaderReturnData} */
-  const data = useLoaderData();
+  let [products, setProducts] = useState([]);
+  let [type, setType] = useState('Living');
+
+  // 去详情页
+  const goDetail = (name) => {
+    return () => {
+      window.location.href = `http://t3qie0-pr.myshopify.com/products/${name}`;
+    };
+  };
+
+  // 选择分类
+  const chooseType = (type) => {
+    setType(type);
+    getList(type);
+  };
+
+  const getList = async (productType) => {
+    try {
+      if(productType == 'Living') {
+        productType = 'Living Room';
+      }
+      let res = await getProducts({numProducts: 2, productType});
+      setProducts(res.data.nodes);
+    } catch (error) {
+      alert(error);
+    }
+  };
+  // 获取所有商品
+  useEffect(() => {
+    getList(type);
+  }, []);
+
   return (
     <div className="bg-[#F8F8F8]">
       {/* Why Choose Us */}
@@ -224,25 +253,104 @@ export default function Homepage() {
         </p>
         {/* tabs */}
         <div className="flex justify-center bg-[#E4E4E4] rounded-full w-[660px] mx-auto p-[6px] gap-[16px] my-[50px]">
-          <div className="px-[16px] py-[14px] text-[18px] bg-[#282828] rounded-full text-[#fff] cursor-pointer">
+          <div
+            style={{
+              background: type == 'Living' ? '#282828' : '',
+              color: type == 'Living' ? '#fff' : '',
+            }}
+            className="px-[16px] py-[14px] text-[18px] rounded-full cursor-pointer"
+            onClick={() => {
+              chooseType('Living');
+            }}
+          >
             Living Room
           </div>
-          <div className="px-[16px] py-[14px] text-[18px] cursor-pointer">
+          <div
+            style={{
+              background: type == 'Bedroom' ? '#282828' : '',
+              color: type == 'Bedroom' ? '#fff' : '',
+            }}
+            className="px-[16px] py-[14px] text-[18px] rounded-full cursor-pointer"
+            onClick={() => {
+              chooseType('Bedroom');
+            }}
+          >
             Bedroom
           </div>
-          <div className="px-[16px] py-[14px] text-[18px] cursor-pointer">
+          <div
+            style={{
+              background: type == 'Workspace' ? '#282828' : '',
+              color: type == 'Workspace' ? '#fff' : '',
+            }}
+            className="px-[16px] py-[14px] text-[18px] rounded-full cursor-pointer"
+            onClick={() => {
+              chooseType('Workspace');
+            }}
+          >
             Workspace
           </div>
-          <div className="px-[16px] py-[14px] text-[18px] cursor-pointer">
+          <div
+            style={{
+              background: type == 'Outdoor' ? '#282828' : '',
+              color: type == 'Outdoor' ? '#fff' : '',
+            }}
+            className="px-[16px] py-[14px] text-[18px] rounded-full cursor-pointer"
+            onClick={() => {
+              chooseType('Outdoor');
+            }}
+          >
             Outdoor
           </div>
-          <div className="px-[16px] py-[14px] text-[18px] cursor-pointer">
+          <div
+            style={{
+              background: type == 'Storage' ? '#282828' : '',
+              color: type == 'Storage' ? '#fff' : '',
+            }}
+            className="px-[16px] py-[14px] text-[18px] rounded-full cursor-pointer"
+            onClick={() => {
+              chooseType('Storage');
+            }}
+          >
             Storage
           </div>
         </div>
         {/* 购物车 */}
-        <div className="grid grid-cols-3 gap-[50px] grid-rows-2 px-[40px]">
-          <div className="rounded-[24px] bg-[#fff] overflow-hidden">
+        <div className="grid grid-cols-3 gap-[50px] px-[40px]">
+          {products.map((item) => {
+            return (
+              <div
+                key={item.id}
+                className="rounded-[24px] bg-[#fff] overflow-hidden"
+              >
+                <img src={item.featuredMedia.image.url} alt="" />
+                <div className="flex justify-between p-[24px] border-box">
+                  <div>
+                    <div className="flex items-center">
+                      <span className="text-[22px] mr-[16px]">
+                        {item.title}
+                      </span>
+                      <span className="bg-[#282828] px-[10px] py-[5px] text-center text-[12px] rounded-full text-[#fff]">
+                        30% Off
+                      </span>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="text-[32px] font-bold mr-[16px]">
+                        ${item.priceRangeV2.maxVariantPrice.amount}
+                      </span>
+                      <span>${item.priceRangeV2.minVariantPrice.amount}</span>
+                    </div>
+                  </div>
+                  <img
+                    className="w-[50px] h-[50px] cursor-pointer"
+                    src={goIcon}
+                    alt=""
+                    onClick={goDetail(item.handle)}
+                  />
+                </div>
+              </div>
+            );
+          })}
+          {/* <div className="rounded-[24px] bg-[#fff] overflow-hidden">
             <img src={card1} alt="" />
             <div className="flex justify-between p-[24px] border-box">
               <div>
@@ -385,7 +493,7 @@ export default function Homepage() {
                 alt=""
               />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* Customize Your Furniture */}
